@@ -1,0 +1,75 @@
+<aura:component controller="ProjController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="passCnfirmation" type="Id" default=""/>
+    <aura:attribute name="booknCnfirmation" type="Id" default=""/>
+    <aura:attribute name="finalCnf" type="lakshmikanth__Passenger__c" default=""/>
+    <aura:attribute name="renderval" type="boolean" default="false"/>
+    <!--c:Projcomp3 /-->
+    <!--aura:renderIf isTrue ="{!v.renderval}"-->
+    <lightning:layout class="slds-page-header slds-page-header--object-home slds-align_absolute-center">
+        <lightning:layoutItem class="slds-m-top_xx-large">
+            <lightning:icon iconName="action:approval" alternativeText="Approved"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem class=" slds-box slds-theme--default slds-container--large">            
+            <lightning:formattedText value="{!'Thanks for choosing' +' '+ (v.finalCnf.lakshmikanth__Flight__r.lakshmikanth__Airlines__c) }" />         
+            <lightning:card title="Confirmation" iconName="action:user" footer="All rights Reserved ®" >
+                <aura:set attribute="actions">
+                    <div>ID:
+                        <lightning:formattedText value="{!v.passCnfirmation}"/>                  
+                    </div>
+                </aura:set>
+                <div  class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <div class="slds-p-horizontal_small">
+                            Passenger: <br/> 
+                            <p class ="slds-text-heading--small">                                
+                                <div class="slds-text-color_success">  <lightning:formattedText value="{!v.finalCnf.Name}" /></div>
+                            </p>
+                            Passport: <br/>
+                            <p class="slds-text-heading--small">            
+                                <div class="slds-text-color_success">  <lightning:formattedText value="{!v.finalCnf.lakshmikanth__Passport_Number__c}" /></div>                            
+                            </p>
+                            Email: <br/>
+                            <p class="slds-text-heading--small"> 
+                                <div class="slds-text-color_success">  <lightning:formattedText value="{!v.finalCnf.lakshmikanth__Email__c}" /> </div>                               
+                            </p>
+                            Phone: <br/>
+                            <p class="slds-text-heading--small">
+                                <div class="slds-text-color_success"> <lightning:formattedText value="{!v.finalCnf.lakshmikanth__Phone_number__c}" /></div>                                     
+                            </p>                           
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-p-horizontal--small">
+                            Flight Number: <br/>
+                            <p class="slds-text-heading--small">
+                                
+                                <div class="slds-text-color_success">    <lightning:formattedText value="{!v.finalCnf.lakshmikanth__Flight__r.Name }" /> </div></p>
+                            Seat: <br/>
+                            <p class="slds-text-heading--small">       
+                                
+                                <div class="slds-text-color_success">  <lightning:formattedText value="{!v.finalCnf.lakshmikanth__Flight__r.lakshmikanth__Seat_selection__c }"/> </div>
+                                
+                            </p>
+                            Departure:	<br/>
+                            <lightning:icon iconName="custom:custom20" alternativeText="My Expenses"/>
+                            
+                            <p class="slds-text-heading--small">
+                                
+                                <div class="slds-text-color_success">    <lightning:formattedDateTime value="{!v.finalCnf.lakshmikanth__Flight__r.lakshmikanth__Departure_date__c}" year="numeric" month="numeric" day="numeric"  hour="2-digit" minute="2-digit" timeZoneName="short" /></div></p>
+                            Arrival:	<br/>
+                            <lightning:icon iconName="custom:custom107" alternativeText="My Expenses"/>
+                            
+                            <p class="slds-text-heading--small">
+                                
+                                <div class="slds-text-color_success"> <lightning:formattedDateTime value="{!v.finalCnf.lakshmikanth__Flight__r.lakshmikanth__Arrival_Date__c}" year="numeric" month="numeric" day="numeric"  hour="2-digit" minute="2-digit" timeZoneName="short" /></div></p>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </lightning:card>
+        </lightning:layoutItem>     
+    </lightning:layout>
+    <!--/aura:renderIf-->
+    
+</aura:component>

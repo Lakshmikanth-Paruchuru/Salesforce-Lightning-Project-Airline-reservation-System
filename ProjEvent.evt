@@ -1,0 +1,12 @@
+<aura:event type="APPLICATION" description="Event template" >
+ <aura:attribute name="From" type="string"/>    
+ <aura:attribute name="To" type="string"/>
+ <aura:attribute name="Depdate" type="date"/>
+ <aura:attribute name="Ardate" type="date"/>
+ <aura:attribute name="class" type="string"/>
+ <aura:attribute name="bookingid" type="Id"/>
+ <aura:attribute name="passconfo" type="Id"/>
+ <aura:attribute name="bookingconfo" type="Id"/>
+  <aura:attribute name="nav" type="string"/>
+  
+</aura:event>

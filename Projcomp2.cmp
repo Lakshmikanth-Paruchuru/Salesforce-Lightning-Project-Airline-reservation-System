@@ -1,0 +1,56 @@
+<aura:component controller="ProjController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="display" type="lakshmikanth__Flight__c[]"/>
+    <aura:attribute name="selseat" type="list" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.Seathandle}"/>
+    <aura:attribute name="rendervalue" type="boolean" default="false"/>
+    <aura:registerEvent name="sendId" type="c:ProjEvent"/>
+    <aura:registerEvent name="back" type="c:ProjEvent2"/>
+    <br/><br/>
+    <!--c:Projcomp1 /-->
+    <br/><br/><br/><br/><br/>
+    <!--aura:renderIf isTrue="{!v.rendervalue}"-->
+        <table class="slds-table">
+            <thead>
+                <tr>
+                    <th scope="col">Airline</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Price(in Rupees)</th>
+                    <th scope="col">Available seats</th>
+                    
+                    
+                </tr>
+            </thead>
+            <tBody>
+                <aura:iteration items="{!v.display}" var="a">
+                    <tr>
+                        <th scope="col"> 
+                            <ui:outputText value="{!a.lakshmikanth__Airlines__c}"></ui:outputText>
+                            
+                        </th>           
+                        <th scope="col">
+                            <lightning:formattedDateTime value="{!a.lakshmikanth__Departure_date__c}" year="numeric" month="numeric" day="numeric"  hour="2-digit" minute="2-digit" timeZoneName="short" />
+                            
+                        </th>
+                        <th scope="col">
+                            <lightning:formattedDateTime value="{!a.lakshmikanth__Arrival_Date__c}" year="numeric" month="numeric" day="numeric"  hour="2-digit" minute="2-digit" timeZoneName="short" />
+                        </th>
+                        <th scope="col">
+                            <ui:outputText value="{!a.lakshmikanth__Fare__c}" aura:id="fare"></ui:outputText>
+                            
+                        </th>                  
+                        <th scope="col" class="slds-m-top_x-large">
+                            <div onclick="{!c.handleClick}" data-value="{!a.Id}">
+                                <lightning:button label="book" iconName="utility:check" iconPosition="left"  variant="brand" value="{!a.Id}"/>
+                            </div>
+                        </th>
+                        
+                    </tr>
+                </aura:iteration> 
+            </tBody>
+    </table><br/><br/>
+    <lightning:button class="slds-align_absolute-center" variant="brand" label="Cancel" onclick="{!c.goback}"/>
+        <br/><br/><br/><br/>
+        
+    <!--/aura:renderIf-->
+</aura:component>

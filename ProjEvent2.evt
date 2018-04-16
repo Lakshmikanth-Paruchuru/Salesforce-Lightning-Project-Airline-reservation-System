@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute name="back" type="string"/>
+    <aura:attribute name="back2" type="string"/>
+    
+</aura:event>

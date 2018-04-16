@@ -1,0 +1,62 @@
+<aura:component controller="ProjController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="bookflight" type="Flight__c[]" default="{'sObjectType':'Flight__c'}"/>
+    <aura:attribute name="bkflightfrom" type="list" default=""/>
+    <aura:attribute name="bkflightto" type="list" default=""/>
+    <aura:attribute name="bkflightclass" type="list" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInitFrom}"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInitTo}"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInitclass}"/> 
+    <aura:registerEvent name="senddata" type="c:ProjEvent"/>
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem >
+            <lightning:icon iconName="custom:custom20" alternativeText="My Expenses"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small" class="slds-m-top_small">
+            <div class="page-section page-header slds-text-heading_large">
+                <h1 class="slds-text-heading--label ">Book Flight</h1>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <div class="slds-box slds-theme--default">
+    
+    <lightning:layout >
+        <lightning:layoutItem padding="horizontal-small">
+            <lightning:select name="select" label="From" aura:id="from" messageWhenValueMissing="Complete field" required="true" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.bkflightfrom}" var="From">
+                    <option value="{!From}" text="{!From}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">         
+            <lightning:layoutItem padding="horizontal-small">
+            <lightning:select name="select" label="To" aura:id="to" messageWhenValueMissing="Complete field" required="true" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.bkflightto}" var="to">
+                    <option value="{!to}" text="{!to}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </lightning:layoutItem>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <lightning:input type="date" label="Departure" aura:id="ddate" messageWhenValueMissing="Complete field" required="true"  value="{!v.bookflight.Departure_date__c}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <lightning:input type="date" label="Arrival" aura:id="adate" messageWhenValueMissing="Complete field" required="true"  value="{!v.bookflight.Arrival_date__c}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <lightning:select name="select" label="Traveller" aura:id="class" messageWhenValueMissing="Complete field" required="true" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.bkflightclass}" var="class">
+                    <option value="{!class}" text="{!class}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </lightning:layoutItem>        
+    </lightning:layout>
+    <br/><br/>
+    <div class="btncolor slds-align_absolute-center">   
+        <lightning:button class="slds-button slds-button--brand" label="Search" onclick="{!c.searchFlight}"/>           
+    </div>  
+            </div>
+
+</aura:component>

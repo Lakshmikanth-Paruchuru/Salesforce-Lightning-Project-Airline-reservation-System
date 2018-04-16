@@ -1,0 +1,26 @@
+<aura:component controller="ProjController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler event="c:ProjEvent" action="{!c.handleComp2}"/>
+    <aura:handler event="c:ProjEvent2" action="{!c.handleCompback}"/>
+    <aura:attribute name="showComp" type="String" default="firstComp"/> 
+    <aura:attribute name="attrComp2" type="lakshmikanth__Flight__c[]"/>
+    <aura:attribute name="attrComp3" type="Id" default=""/>
+    <aura:attribute name="attrComp31" type="lakshmikanth__Flight__c" default=""/>
+    <aura:attribute name="attrComppass" type="Id" default=""/>
+    <aura:attribute name="attrCompbookn" type="Id" default=""/>
+    <aura:attribute name="attrCompfli" type="lakshmikanth__Passenger__c" default=""/>
+    
+    <aura:If isTrue="{!equals(v.showComp,'firstComp')}">
+        <c:Projcomp1 />
+    </aura:If>
+    <aura:If isTrue="{!equals(v.showComp,'secondComp')}">
+        <c:Projcomp2 display="{!v.attrComp2}"/>
+    </aura:If>
+    <aura:If isTrue="{!equals(v.showComp,'thirdComp')}">
+        <c:Projcomp3 getbookingid="{!v.attrComp3}" getbooking="{!v.attrComp31}"/>
+    </aura:If>
+    <aura:If isTrue="{!equals(v.showComp,'fourthComp')}">
+        <c:Projcomp4 passCnfirmation="{!v.attrComppass}"
+                    booknCnfirmation="{!v.attrCompbookn}" 
+                    finalCnf="{!v.attrCompfli}"/>
+    </aura:If>
+</aura:component>

@@ -1,0 +1,66 @@
+<aura:component controller="ProjController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="passInfo" type="lakshmikanth__Passenger__c" default="{'sObjectType':'lakshmikanth__Passenger__c'}"/>
+    <aura:attribute name="state" type="list" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInitState}"/> 
+    <aura:attribute name="getbooking" type="lakshmikanth__Flight__c" default=""/>
+    <aura:attribute name="getbookingid" type="Id" default=""/>
+    <aura:attribute name="renderval" type="boolean" default="false"/>
+    <aura:attribute name="selectseat" type="list" default="bool"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInitseat}"/> 
+    <aura:attribute name="passConfirmation" type="Id" default=""/>
+    <aura:registerEvent name="sendCnfm" type="c:ProjEvent"/>
+    <aura:registerEvent name="back2" type="c:ProjEvent2"/>
+
+  
+    <!--c:Projcomp2 /-->   
+    
+    <!--aura:renderIf isTrue="{!v.renderval}"-->
+    <div class="margin">
+        <div class="slds-box slds-theme--default slds-container--small">
+            <lightning:card iconName="lightning:card" title="Choose seat" >
+                <div class="slds-p-horizontal--small">
+                    <p class="slds-text-heading--small">
+                        Airlines:	
+                        <lightning:formattedText value="{!v.getbooking.lakshmikanth__Airlines__c }" /></p>
+                    <p class="slds-text-heading--small">
+                        Flight Number:	
+                        <lightning:formattedText value="{!v.getbooking.Name}" /></p>                
+                    <p class="slds-text-heading--small">
+                        <lightning:select name="select" label="Select seat" aura:id="seat" messageWhenValueMissing="Complete field" required="true" >
+                            <option value="">-- None --</option>
+                            <aura:iteration items="{!v.selectseat}" var="a">
+                                <option value="{!a}" text="{!a}"></option>
+                            </aura:iteration>
+                        </lightning:select>    
+                        
+                    </p>
+                    
+                </div>
+            </lightning:card>
+        </div>
+        
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+            <legend id="Travel form" class="slds-text-heading--small 
+                                             slds-p-vertical--medium">
+                Traveller Information
+            </legend>
+            
+            <lightning:input label="Passenger Name" value="{!v.passInfo.Name}"/>
+            <lightning:input label="Address" value="{!v.passInfo.lakshmikanth__Address__c}"/>
+            <lightning:select name="select" label="State" aura:id="state" messageWhenValueMissing="Complete field" required="true" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.state}" var="state">
+                    <option value="{!state}" text="{!state}"></option>
+                </aura:iteration>
+            </lightning:select>
+            <lightning:input label="City" value="{!v.passInfo.lakshmikanth__City__c}"/>
+            <lightning:input label="Email" type="email" value="{!v.passInfo.lakshmikanth__Email__c}"/>
+            <lightning:input label="Phone" type="tel" value="{!v.passInfo.lakshmikanth__Phone_number__c}"/>
+            <lightning:input label="Passport Number" value="{!v.passInfo.lakshmikanth__Passport_Number__c}"/><br/><br/>
+            <lightning:button class="slds-align_absolute-center" label="Check out and Confirm Booking" variant="brand" onclick="{!c.checkout}"/>
+            <!--lightning:button label="Go back" onclick="{!c.goback}"/-->
+        </fieldset>
+            </div>
+
+    <!--/aura:renderIf-->
+</aura:component>

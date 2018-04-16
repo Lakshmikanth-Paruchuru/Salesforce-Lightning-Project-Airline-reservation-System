@@ -1,0 +1,58 @@
+public class ProjController {
+    @AuraEnabled
+    public static List<String> getPickListValues(String obj, String str) {
+        
+        try{
+            List<String> options = new List<String>(); 
+            
+            Schema.DescribeFieldResult plistvalues = Schema.getGlobalDescribe().get(obj).getDescribe().fields.getMap().get(str).getDescribe();
+            for(PicklistEntry ent:plistvalues.getpicklistvalues()){
+                options.add(ent.getLabel());
+            }
+            return options;
+        }catch(Exception e){string error = e.getStackTraceString() + '~' + e.getMessage();throw new AuraHandledException(error);}
+    }
+    @AuraEnabled
+    public static list<lakshmikanth__Flight__c> filtervalues(String fromm, string to, Datetime depdate, Datetime ardate, string clas){
+        list<lakshmikanth__Flight__c> fli = [SELECT lakshmikanth__Airlines__c, lakshmikanth__Arrival_Date__c,
+                                             lakshmikanth__Departure_date__c, lakshmikanth__Fare__c FROM lakshmikanth__Flight__c 
+                                             WHERE (lakshmikanth__From__c=:fromm AND lakshmikanth__To__c =:to AND 
+                                                    lakshmikanth__Traveller__c =:clas
+                                                   )];
+        return fli;
+    }
+    @AuraEnabled
+    public static lakshmikanth__Flight__c getrecordFlight(id xyz)
+    {
+        lakshmikanth__Flight__c getvalue = [Select lakshmikanth__Airlines__c,Name,
+                                            lakshmikanth__Seat_selection__c from lakshmikanth__Flight__c where id=:xyz];
+        return getvalue;
+    }
+    @AuraEnabled
+    public static void insertseat(string confirmseat, id presentid){
+        lakshmikanth__Flight__c s = new lakshmikanth__Flight__c();
+        s.lakshmikanth__Seat_selection__c = confirmseat;
+        s.Id = presentid; 
+        if(s!= null)
+            update s;
+        
+    }
+    @AuraEnabled
+    public static Id setpassinfo(lakshmikanth__Passenger__c objpass, id presentid){
+        objpass.lakshmikanth__Flight__c = presentid;
+        system.debug(objpass);
+        if(objpass!=null)
+            insert objpass;     
+        return objpass.Id;
+    }
+    
+    @AuraEnabled
+    public static lakshmikanth__Passenger__c bookinfo(Id bookObj){
+        lakshmikanth__Passenger__c bookin = [SELECT Name,lakshmikanth__Email__c,lakshmikanth__Phone_number__c,lakshmikanth__Passport_Number__c,
+                                             lakshmikanth__Flight__r.Name, lakshmikanth__Flight__r.lakshmikanth__Departure_date__c, 
+                                             lakshmikanth__Flight__r.lakshmikanth__Arrival_Date__c,
+                                             lakshmikanth__Flight__r.lakshmikanth__Seat_selection__c, lakshmikanth__Flight__r.lakshmikanth__Airlines__c 
+                                             FROM lakshmikanth__Passenger__c WHERE id=:bookObj];
+        return bookin;
+    }
+}
